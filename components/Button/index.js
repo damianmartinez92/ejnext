@@ -1,7 +1,7 @@
 export default function Button({ children, onClick }) {
   return (
     <>
-      <button>{children}</button>
+      <button onClick={onClick}>{children}</button>
       <style jsx>
         {`
           button {
@@ -15,13 +15,14 @@ export default function Button({ children, onClick }) {
             cursor: pointer;
             padding: 12px 24px;
             opacity: 1;
-            transition: opacity .3s ease;
-          },
-          button > :global(svg){
-              margin-right: 12px;
+            transition: opacity 0.3s ease;
           }
-          button:hover{
-              opacity: .7;
+          ,
+          button > :global(svg) {
+            margin-right: 12px;
+          }
+          button:hover {
+            opacity: 0.7;
           }
         `}
       </style>
