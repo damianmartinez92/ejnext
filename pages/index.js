@@ -4,15 +4,18 @@ import styles from "../styles/Home.module.css";
 import Button from "../components/Button";
 import GitHub from "../components/Icons/Github";
 
+import { useRouter } from "next/router";
+
 import { loginWithGitHub, onAuthStateChanged } from "../firebase/client";
 
 export default function Home() {
   const [user, setUser] = useState(null);
+  const router = useRouter();
 
   const loguearGithub = () => {
     loginWithGitHub()
       .then((res) => {
-        console.log("res", res);
+        console.log("loginGit", res);
         setUser(res);
       })
       .catch((err) => console.log("err", err));
@@ -21,6 +24,10 @@ export default function Home() {
   useEffect(() => {
     onAuthStateChanged(setUser);
   }, []);
+
+  useEffect(() => {
+    user && router.replace("/home");
+  }, [user]);
 
   return (
     <div className={styles.container}>

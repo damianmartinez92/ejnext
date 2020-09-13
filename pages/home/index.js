@@ -52,6 +52,7 @@ export default function Home() {
         section {
           width: 100%;
           height: calc(100vh - 98px);
+          overflow: auto;
         }
         nav {
           height: 49px;
