@@ -25,12 +25,12 @@ export default function Home() {
   return (
     <div className={styles.container}>
       <Head>
-        <title>Ejemplo Next.js</title>
+        <title>Clone Twitter Next.js</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main className={styles.main}>
-        <h2>Bienvenido/a al ejemplo con </h2>
+        <h2>Bienvenido/a al clone de Twitter con </h2>
         <h1>Next.js</h1>
         {!user && (
           <Button onClick={loguearGithub}>
