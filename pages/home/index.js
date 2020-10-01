@@ -15,7 +15,7 @@ export default function Home() {
     <>
       <div>
         <header>
-          <h1>Inicio</h1>
+          <h1>Inicio</h1>  
         </header>
       </div>
       <section>
