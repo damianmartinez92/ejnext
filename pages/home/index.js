@@ -1,35 +1,43 @@
 import { useState, useEffect } from "react";
 import Timeline from "../../components/Timeline/index";
+import { useUser } from "../../hooks/useUser";
+
+import { fetchLatestTweets } from "../../firebase/client";
 
 export default function Home() {
   const [timeline, setTimeline] = useState([]);
+  const user = useUser();
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/statuses/home_timeline")
-      .then((res) => res.json())
-      .then(setTimeline)
-      .catch((err) => console.log("err", err));
-  }, []);
+    user &&
+      fetchLatestTweets()
+        .then(setTimeline)
+        .catch((err) => console.error("Error consuming latest tweets: ", err));
+  }, [user]);
 
   return (
     <>
       <div>
         <header>
-          <h1>Inicio</h1>  
+          <h1>Inicio</h1>
         </header>
       </div>
       <section>
         {timeline.length > 0 &&
-          timeline.map(({ id, username, message, avatar, name }) => (
-            <Timeline
-              key={id}
-              username={username}
-              message={message}
-              avatar={avatar}
-              name={name}
-              id={id}
-            />
-          ))}
+          timeline.map(
+            ({ id, username, content, avatar, name, userId, createdAt }) => (
+              <Timeline
+                key={id}
+                username={username}
+                content={content}
+                avatar={avatar}
+                name={name}
+                id={id}
+                userId={userId}
+                createdAt={createdAt}
+              />
+            )
+          )}
       </section>
       <nav></nav>
 

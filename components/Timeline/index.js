@@ -1,6 +1,16 @@
 import Avatar from "../Avatar/index";
+import moment from "moment";
+moment.locale('es-ES')
 
-export default function Timeline({ username, message, avatar, name, id }) {
+export default function Timeline({
+  username,
+  content,
+  avatar,
+  name,
+  id,
+  createdAt,
+  userId,
+}) {
   return (
     <>
       <article key={id}>
@@ -8,8 +18,13 @@ export default function Timeline({ username, message, avatar, name, id }) {
           <Avatar src={avatar} alt={name} />
         </div>
         <section>
-          <strong>{username}</strong>
-          <p>{message}</p>
+          <header>
+            <strong>{username}{" · "}</strong>
+            <date>
+              {moment(createdAt.seconds * 1000).format("DD/MM/YY HH:mm[hs] ")}
+            </date>
+          </header>
+          <p>{content}</p>
         </section>
       </article>
 
@@ -25,6 +40,11 @@ export default function Timeline({ username, message, avatar, name, id }) {
         section p {
           line-height: 1.3125;
           margin: 0;
+          font-size: 14px;
+        }
+        date{
+          color: lightgrey;
+          font-size: 14px;
         }
       `}</style>
     </>

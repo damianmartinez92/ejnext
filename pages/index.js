@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Head from "next/head";
 import styles from "../styles/Home.module.css";
 import Button from "../components/Button";
@@ -6,24 +6,21 @@ import GitHub from "../components/Icons/Github";
 
 import { useRouter } from "next/router";
 
-import { loginWithGitHub, onAuthStateChanged } from "../firebase/client";
+import { loginWithGitHub } from "../firebase/client";
+import { useUser, USER_STATES } from "../hooks/useUser";
 
 export default function Home() {
-  const [user, setUser] = useState(null);
+  const user = useUser();
   const router = useRouter();
 
   const loguearGithub = () => {
     loginWithGitHub()
       .then((res) => {
-        console.log("loginGit", res);
-        setUser(res);
+        // console.log("loginGit", res);
+        useUser(res);
       })
-      .catch((err) => console.log("err", err));
+      .catch((err) => console.error("err", err));
   };
-
-  useEffect(() => {
-    onAuthStateChanged(setUser);
-  }, []);
 
   useEffect(() => {
     user && router.replace("/home");
@@ -37,25 +34,19 @@ export default function Home() {
       </Head>
 
       <main className={styles.main}>
-        <h2>Bienvenido/a al clone de Twitter con </h2>
-        <h1>Next.js</h1>
-        {!user && (
-          <Button onClick={loguearGithub}>
-            <GitHub width={24} height={24} fill="white" /> Login con GitHub
-          </Button>
-        )}
-        {user && (
-          <div
-            style={{
-              marginTop: "32px",
-              display: "flex",
-              alignItems: "center",
-              flexDirection: "column",
-            }}
-          >
-            <img src={user.avatar} alt="Photo" width="120px" />
-            <strong>Hola {user.username}!</strong>
-          </div>
+        {user === USER_STATES.NOT_KNOW ? (
+          <img src="loading.gif" alt="Cargando..." />
+        ) : (
+          <>
+            <h2>Bienvenido/a al clone de Twitter con </h2>
+            <h1>Next.js</h1>
+            {user === USER_STATES.NOT_LOGGER && (
+              <Button onClick={loguearGithub}>
+                <GitHub width={24} height={24} fill="white" /> Iniciar sesión
+                con GitHub
+              </Button>
+            )}
+          </>
         )}
       </main>
     </div>
