@@ -1,6 +1,5 @@
 import Avatar from "../Avatar/index";
-import moment from "moment";
-moment.locale('es-ES')
+import { useTimeAgo } from "../../hooks/useTimeAgo";
 
 export default function Timeline({
   username,
@@ -11,6 +10,7 @@ export default function Timeline({
   createdAt,
   userId,
 }) {
+  const time = useTimeAgo(createdAt);
   return (
     <>
       <article key={id}>
@@ -19,10 +19,11 @@ export default function Timeline({
         </div>
         <section>
           <header>
-            <strong>{username}{" · "}</strong>
-            <date>
-              {moment(createdAt.seconds * 1000).format("DD/MM/YY HH:mm[hs] ")}
-            </date>
+            <strong>
+              {username}
+              {" · "}
+            </strong>
+            <span>{time}</span>
           </header>
           <p>{content}</p>
         </section>
@@ -42,7 +43,7 @@ export default function Timeline({
           margin: 0;
           font-size: 14px;
         }
-        date{
+        span {
           color: lightgrey;
           font-size: 14px;
         }

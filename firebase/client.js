@@ -61,9 +61,12 @@ export const fetchLatestTweets = () => {
       return snapshot.docs.map((doc) => {
         const data = doc.data();
         const id = doc.id;
+        const { createdAt } = data;
+
         return {
-          id,
           ...data,
+          id,
+          createdAt: +createdAt.toDate(),
         };
       });
     });

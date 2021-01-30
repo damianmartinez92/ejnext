@@ -12,7 +12,7 @@ export default function Home() {
     user &&
       fetchLatestTweets()
         .then(setTimeline)
-        .catch((err) => console.error("Error consuming latest tweets: ", err));
+        .catch((err) => console.error(err));
   }, [user]);
 
   return (
@@ -24,20 +24,22 @@ export default function Home() {
       </div>
       <section>
         {timeline.length > 0 &&
-          timeline.map(
-            ({ id, username, content, avatar, name, userId, createdAt }) => (
-              <Timeline
-                key={id}
-                username={username}
-                content={content}
-                avatar={avatar}
-                name={name}
-                id={id}
-                userId={userId}
-                createdAt={createdAt}
-              />
-            )
-          )}
+          timeline
+            .sort((a, b) => b.createdAt - a.createdAt)
+            .map(
+              ({ id, username, content, avatar, name, userId, createdAt }) => (
+                <Timeline
+                  key={id}
+                  username={username}
+                  content={content}
+                  avatar={avatar}
+                  name={name}
+                  id={id}
+                  userId={userId}
+                  createdAt={createdAt}
+                />
+              )
+            )}
       </section>
       <nav></nav>
 
