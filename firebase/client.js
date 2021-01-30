@@ -56,6 +56,7 @@ export const addTweet = ({ avatar, content, userId, username }) => {
 export const fetchLatestTweets = () => {
   return db
     .collection("tweets")
+    .orderBy("createdAt", "desc")
     .get()
     .then((snapshot) => {
       return snapshot.docs.map((doc) => {

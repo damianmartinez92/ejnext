@@ -21,30 +21,30 @@ const getDateDiffs = (timestamp) => {
   }
 };
 
-// CHEQUEA LA HORA QUE PASO CADA SEGUNDO
+// FUNCION SIN CHEQUEO DE TIEMPO CADA SEGUNDO
 export const useTimeAgo = (timestamp) => {
-  const [timeago, setTimeago] = useState(() => getDateDiffs(timestamp));
-  useEffect(() => {
-    const interval = setInterval(() => {
-      const newTimeAgo = getDateDiffs(timestamp);
-      setTimeago(newTimeAgo);
-    }, 1000);
-
-    return () => clearInterval(interval);
-  }, [timestamp]);
-
+  const { value, unit } = getDateDiffs(timestamp);
   const rtf = new Intl.RelativeTimeFormat("es", {
     style: "long",
   });
-  const { value, unit } = timeago;
   return rtf.format(value, unit);
 };
 
-// FUNCION SIN CHEQUEO DE TIEMPO CADA SEGUNDO
+// CHEQUEA LA HORA QUE PASO CADA SEGUNDO
 // export const useTimeAgo = (timestamp) => {
-//   const { value, unit } = getDateDiffs(timestamp);
+//   const [timeago, setTimeago] = useState(() => getDateDiffs(timestamp));
+//   useEffect(() => {
+//     const interval = setInterval(() => {
+//       const newTimeAgo = getDateDiffs(timestamp);
+//       setTimeago(newTimeAgo);
+//     }, 1000);
+
+//     return () => clearInterval(interval);
+//   }, [timestamp]);
+
 //   const rtf = new Intl.RelativeTimeFormat("es", {
 //     style: "long",
 //   });
+//   const { value, unit } = timeago;
 //   return rtf.format(value, unit);
 // };
