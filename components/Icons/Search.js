@@ -12,7 +12,7 @@ function Search(props) {
       <g
         fill="none"
         fillRule="evenodd"
-        stroke="#2a2e3b"
+        stroke="white"
         strokeLinecap="round"
         strokeLinejoin="round"
       >

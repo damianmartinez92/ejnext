@@ -4,6 +4,7 @@ import { useUser } from "../../../hooks/useUser";
 import { useRouter } from "next/router";
 
 import { addTweet } from "../../../firebase/client";
+import Head from "next/head";
 
 const index = () => {
   const user = useUser();
@@ -33,6 +34,9 @@ const index = () => {
 
   return (
     <>
+      <Head>
+        <title>Crear Tweet</title>
+      </Head>
       <form onSubmit={handleSubmit}>
         <textarea
           placeholder="¿Qué está pasando?"
