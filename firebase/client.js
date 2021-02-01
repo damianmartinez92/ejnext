@@ -1,7 +1,4 @@
-import firebase from "firebase/app";
-
-import "firebase/auth";
-import "firebase/firestore";
+import * as firebase from "firebase";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBbTrDTjmEeo3M1pv8E4uddQRvKXkgjDdU",
@@ -41,12 +38,13 @@ export const loginWithGitHub = () => {
   return firebase.auth().signInWithPopup(githubProvider);
 };
 
-export const addTweet = ({ avatar, content, userId, username }) => {
+export const addTweet = ({ avatar, content, userId, username, img }) => {
   return db.collection("tweets").add({
     avatar,
     content,
     userId,
     username,
+    img,
     createdAt: new Date(),
     likesCount: 0,
     sharedCount: 0,

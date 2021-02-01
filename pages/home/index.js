@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Timeline from "../../components/Timeline/index";
 import { useUser } from "../../hooks/useUser";
 import Link from "next/link";
-import Head from 'next/head'
+import Head from "next/head";
 
 // SERVICES
 import { fetchLatestTweets } from "../../firebase/client";
@@ -25,9 +25,9 @@ export default function Home() {
 
   return (
     <>
-    <Head>
-      <title>Inicio / Tweets</title>
-    </Head>
+      <Head>
+        <title>Inicio / Tweets</title>
+      </Head>
       <div>
         <header>
           <h1>Inicio</h1>
@@ -36,7 +36,16 @@ export default function Home() {
       <section>
         {timeline.length > 0 &&
           timeline.map(
-            ({ id, username, content, avatar, name, userId, createdAt }) => (
+            ({
+              id,
+              username,
+              content,
+              avatar,
+              name,
+              img,
+              userId,
+              createdAt,
+            }) => (
               <Timeline
                 key={id}
                 username={username}
@@ -44,6 +53,7 @@ export default function Home() {
                 avatar={avatar}
                 name={name}
                 id={id}
+                img={img}
                 userId={userId}
                 createdAt={createdAt}
               />
@@ -53,7 +63,7 @@ export default function Home() {
       <nav>
         <Link href="/home">
           <a>
-            <IconHome fill="white" width={25} height={25} />
+            <IconHome fill="white" width={32} height={32} />
           </a>
         </Link>
         <Link href="/home">

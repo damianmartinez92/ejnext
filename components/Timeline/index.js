@@ -6,6 +6,7 @@ export default function Timeline({
   content,
   avatar,
   name,
+  img,
   id,
   createdAt,
   userId,
@@ -26,6 +27,7 @@ export default function Timeline({
             <span>{time}</span>
           </header>
           <p>{content}</p>
+          {img && <img src={img} alt="Image" />}
         </section>
       </article>
 
@@ -46,6 +48,13 @@ export default function Timeline({
         span {
           color: lightgrey;
           font-size: 14px;
+        }
+
+        img {
+          width: 100%;
+          height: auto;
+          margin-top: 10px;
+          border-radius: 10px;
         }
       `}</style>
     </>
